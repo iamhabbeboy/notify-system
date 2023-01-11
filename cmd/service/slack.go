@@ -23,7 +23,7 @@ func (s Slack) Send(ctx context.Context, subject, message string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	url := "https://hooks.slack.com/services/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"
+	url := "https://hooks.slack.com/services/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"
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(j))
 	if err != nil {
 		return err

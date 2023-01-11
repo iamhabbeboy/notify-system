@@ -31,6 +31,9 @@ func (l *LoggerService) Log(message string) {
 	}
 	var wg sync.WaitGroup
 	for _, v := range l.services {
+		if _, ok := services[v]; !ok {
+			continue
+		}
 		wg.Add(1)
 		v := v
 		go (func() {
