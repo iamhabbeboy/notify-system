@@ -19,7 +19,7 @@ type Mail struct {
 }
 
 // New returns a new instance of a Mail notification service.
-func New(senderAddress, smtpHostAddress string) *Mail {
+func NewMailService(senderAddress, smtpHostAddress string) *Mail {
 	return &Mail{
 		usePlainText:      false,
 		senderAddress:     senderAddress,
