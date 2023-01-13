@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Search from "./Search.svelte";
+  import Filter from "./Filter.svelte";
 </script>
 
 <div class="container mx-auto mt-10">
@@ -15,18 +15,13 @@
     </h1>
   </div>
   <div class="flex justify-between">
-    <Search />
+    <Filter />
     <div class="pt-5">
       <button
         class="p-2 rounded-md bg-blue-500 border-0 text-white hover:bg-blue-400"
-        >Add Service +</button
+        >Service +</button
       >
     </div>
-  </div>
-  <div class="text-gray-600 text-sm">
-    Slack <input type="checkbox" />
-    Email <input type="checkbox" />
-    TWillio <input type="checkbox" />
   </div>
   <div class="shadow-md rounded-md mt-2">
     <slot />

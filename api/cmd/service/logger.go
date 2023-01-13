@@ -2,15 +2,25 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"log"
 	service "main/cmd/service/mail"
+	"os"
 	"sync"
+	"time"
 
 	"github.com/nikoksr/notify"
 )
 
 type LoggerService struct {
 	services []string
+}
+
+type LocalLog struct {
+	ServiceName string
+	Environment string
+	Date        string
+	Message     string
 }
 
 func NewLoggerService() *LoggerService {
@@ -47,9 +57,30 @@ func (l *LoggerService) Log(message string) {
 			if err != nil {
 				log.Fatal(err.Error())
 			}
+			now := time.Now()
+			logToFile(&LocalLog{
+				ServiceName: v,
+				Date:        now.Format(time.RFC3339),
+				Environment: "production",
+				Message:     message,
+			})
 		})()
 	}
 	wg.Wait()
+}
+
+func logToFile(payload *LocalLog) {
+	f, err := os.OpenFile("local.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	res := fmt.Sprintf("[%v]::[%s]::[%s]:: %s", payload.ServiceName, payload.Environment, payload.Date, payload.Message)
+	_, err = f.WriteString(res + "\n")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	f.Close()
 }
 
 func slackService() *Slack {
