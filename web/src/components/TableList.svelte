@@ -1,48 +1,26 @@
 <script>
   import { onMount } from "svelte";
-  import TableRow from "./TableRow.svelte";
-  // import { LogType } from "../types/LogType.ts";
-  let logs = {
-    data: [
-      {
-        id: 1,
-        serviceName: "slack",
-        environment: "production",
-        message: "error occured at line 1092",
-        date: "2023-03-02",
-      },
-    ],
-  };
-
+  import Table from "./Table.svelte";
+  import logs from "../store/logs";
+  let isLoading = false
+  let logStatus = "false"
   onMount(async () => {
-    logs = await fetch("http://localhost:1323/logs").then((x) => x.json());
-    console.log(logs);
+    let logList = await fetch("http://localhost:1323/logs").then((x) => x.json());
+    logStatus = logList.status
+    if(logStatus === "true") {
+      logs.addLog(logList.data)
+    }
+    isLoading = true;
   });
 </script>
 
-<div class="overflow-hidden rounded-lg border border-gray-200 shadow-md">
-  <!-- {#if logs.status === "false"}
-      <h1>Error occured while processing data</h1>
-  {/if} -->
-  <table
-    class="w-full border-collapse bg-white text-left text-sm text-gray-500"
-  >
-    <thead class="bg-gray-50">
-      <tr>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Service</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900"
-          >Environment</th
-        >
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Message</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900" />
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-      {#each logs.data as log}
-        <TableRow payload={log} />
-      {/each}
-    </tbody>
-  </table>
+<div class="overflow-hidden rounded-lg border bg-white border-gray-200 shadow-md">
+  {#if isLoading === false || logStatus === "false"}
+    <div class="p-10 text-center text-gray-500 flex place-items-center">
+      <img src="/icons/gear.svg" alt="" width="100" height="100"/>
+      <h1 class="text-2xl">{logStatus === "false" ? "Error Occured while retrieving your data." : "Please wait, while we retrieve your data."}</h1>
+    </div>
+  {:else}
+    <Table />
+  {/if}
 </div>
