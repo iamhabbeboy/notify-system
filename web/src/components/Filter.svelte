@@ -1,14 +1,28 @@
+<script lang="ts">
+  import filter from "../store/logs";
+  import type {LogType} from "../InterfaceTypes/LogType"
+  let service: string;
+  let date: string;
+  let text: string;
+
+  const filters = () => {
+    console.log($filter)
+  };
+</script>
+
 <div class="pt-2 text-gray-600 w-2/3">
   <select
+    bind:value={service}
     class="border-2 border-gray-300 bg-white h-10 px-5 pr-5 rounded-lg text-sm focus:outline-none"
   >
-  <option value="slack">Slack</option>
-  <option value="slack">Email</option>
+    <option value="slack">Slack</option>
+    <option value="slack">Email</option>
   </select>
-    <input
+  <input
     class="border-2 border-gray-300 bg-white h-10 px-5 pr-5 rounded-lg text-sm focus:outline-none"
     type="date"
     name="date"
+    bind:value={date}
     placeholder="Select Date"
   />
 
@@ -16,9 +30,15 @@
     class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
     type="search"
     name="search"
+    bind:value={text}
     placeholder="Search"
   />
-  <button type="submit" class="mt-5 border-0" style="margin-left: -30px;">
+  <button
+    type="submit"
+    class="mt-5 border-0"
+    style="margin-left: -30px;"
+    on:click={filters}
+  >
     <svg
       class="text-gray-600 h-4 w-4 fill-current"
       xmlns="http://www.w3.org/2000/svg"

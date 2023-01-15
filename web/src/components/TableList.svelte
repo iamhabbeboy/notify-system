@@ -2,10 +2,12 @@
   import { onMount } from "svelte";
   import Table from "./Table.svelte";
   import logs from "../store/logs";
+  import {BASE_URL} from "../config/config";
+  
   let isLoading = false
   let logStatus = "false"
   onMount(async () => {
-    let logList = await fetch("http://localhost:1323/logs").then((x) => x.json());
+    let logList = await fetch(`${BASE_URL}/logs`).then((data) => data.json());
     logStatus = logList.status
     if(logStatus === "true") {
       logs.addLog(logList.data)
@@ -21,6 +23,12 @@
       <h1 class="text-2xl">{logStatus === "false" ? "Error Occured while retrieving your data." : "Please wait, while we retrieve your data."}</h1>
     </div>
   {:else}
-    <Table />
+    {#if $logs.length === 0}
+    <div class="p-10 text-gray-500">
+      <h1 class="text-2xl">No log record available</h1>
+    </div>
+    {:else}
+      <Table />
+    {/if}
   {/if}
 </div>

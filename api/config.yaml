@@ -1,0 +1,7 @@
+appname: notify coffee
+environment: production
+services:
+    - slack:
+        - webhook: http://
+    - email:
+        - host: smtp
