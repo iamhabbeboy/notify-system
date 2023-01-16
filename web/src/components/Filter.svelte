@@ -1,12 +1,15 @@
 <script lang="ts">
   import filter from "../store/logs";
-  import type {LogType} from "../InterfaceTypes/LogType"
+  import type { LogType } from "../InterfaceTypes/LogType";
+  import { logFilter, updateSearchValue } from "../store/filter";
+  import logs from "../store/logs";
+  import { onDestroy } from "svelte";
   let service: string;
   let date: string;
   let text: string;
 
   const filters = () => {
-    console.log($filter)
+    updateSearchValue("new batch here");
   };
 </script>
 

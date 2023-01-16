@@ -3,14 +3,12 @@
   import { modal } from "../store/modal";
   let status;
   const handleCloseModal = () => {
-    modal.update( value => value = true);
+    modal.update( value => value = false);
   }
-  onMount(() => {
-    status = $modal
-  })
+
 </script>
 
-<div class={"backdrop " + " hidden"}>
+<div class="backdrop { $modal ? '' : 'hidden'}">
   <div
     id="myModal"
     class="h-auto mx-auto w-11/12 md:w-2/6 p-5  bg-white rounded-md "
