@@ -1,4 +1,4 @@
-# logrocket Internal error Notification System demo
+# Logrocket Internal error Notification System demo
 A simple internal error notification system built on existing Go package called [Notify](https://github.com/nikoksr/notify) that sends messages to external services such as Slack, Email, Twilio, Telegram, etc. with a built-in dashboard for logging messages.
 
 ![logrocket](https://res.cloudinary.com/denj7z5ec/image/upload/v1673914240/Screenshot_2023-01-17_at_1.10.33_AM_r5wyrh.png)
