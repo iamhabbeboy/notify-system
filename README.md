@@ -9,4 +9,5 @@ A simple internal error notification system built on existing Go package called 
 - [Air](https://github.com/cosmtrek/air) - Live reload for Go apps
 - [Viper](https://github.com/spf13/viper)
 - [Svelte](https://svelte.dev)
+- [Tailwindcss](https://tailwindcss.com)
 
