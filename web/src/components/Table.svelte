@@ -12,7 +12,7 @@ import logs from "../store/logs";
         <th scope="col" class="px-6 py-4 font-medium text-gray-900"
           >Environment</th
         >
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
+        <!-- <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th> -->
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Message</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900" />

@@ -1,9 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/nikoksr/notify"
@@ -36,34 +38,34 @@ func (l *Logger) Log(message string) {
 		"email": mailService(),
 		"slack": slackService(),
 	}
-	// var wg sync.WaitGroup
+	var wg sync.WaitGroup
 	for _, v := range l.services {
 		if _, ok := services[v]; !ok {
 			continue
 		}
-		// wg.Add(1)
-		// v := v
-		// go (func() {
-		// 	defer wg.Done()
-		// notify.UseServices(services[v])
-		// err := notify.Send(
-		// 	context.Background(),
-		// 	"Demo App:: Attention required",
-		// 	message,
-		// )
-		// if err != nil {
-		// 	log.Fatal(err.Error())
-		// }
-		now := time.Now()
-		logToFile(&LocalLog{
-			ServiceName: v,
-			Date:        now.Format(time.RFC3339),
-			Environment: "production",
-			Message:     message,
-		})
-		// })()
+		wg.Add(1)
+		v := v
+		go (func() {
+			defer wg.Done()
+			notify.UseServices(services[v])
+			err := notify.Send(
+				context.Background(),
+				"Demo App:: Attention required",
+				message,
+			)
+			if err != nil {
+				log.Fatal(err.Error())
+			}
+			now := time.Now()
+			logToFile(&LocalLog{
+				ServiceName: v,
+				Date:        now.Format(time.RFC3339),
+				Environment: "production",
+				Message:     message,
+			})
+		})()
 	}
-	// wg.Wait()
+	wg.Wait()
 }
 
 func logToFile(payload *LocalLog) {

@@ -16,7 +16,7 @@
         width="30"
         height="30"
         align="left"
-      /> Notify
+      /> Alert Notify
     </h1>
   </div>
   <div class="flex justify-between">
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="shadow-md rounded-md mt-2 my-3">
+  <div class="shadow-md rounded-md mt-2 my-3 overflow-y mb-20">
     <slot />
   </div>
 </div>

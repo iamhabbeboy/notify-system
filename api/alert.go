@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"reflect"
 	"strings"
 
 	"github.com/labstack/echo"
@@ -61,13 +60,7 @@ services:
 `)
 	viper.ReadConfig(bytes.NewBuffer(sample))
 	viper.SafeWriteConfig()
-	cnf := map[string]string{
-		"name": "abiodun",
-		"age":  "14",
-	}
 
-	sm := reflect.ValueOf(cnf).MapKeys()
-	fmt.Println(sm)
 	a := viper.Get("services")
 	fmt.Println(a)
 	// logger.SetLogger("slack", "telegram", "email")

@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { modal } from "../store/modal";
-  let status;
+
   const handleCloseModal = () => {
     modal.update( value => value = false);
   }
